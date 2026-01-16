@@ -5,3 +5,4 @@ WHERE CAR_TYPE = 'SUV';
 
 
 #FWGHSOL
+# select에서 정의한 별칭만 주의 s이후에 쓸수있다!
