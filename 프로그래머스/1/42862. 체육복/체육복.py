@@ -27,3 +27,20 @@ def solution(n, lost, reserve):
             pass
     # 체육복 입을 수 있는 학생 수 
     return n - len(lost)
+
+
+#다른 풀이 
+def solution(n, lost, reserve):
+    #교집합 제거 (리스트 컴프리헨션) - 잃어버렸지만 여벌도 있는 학생 제거 
+    _reserve = [r for r in reserve if r not in lost] 
+    _lost = [l for l in lost if l not in reserve]
+    # 여벌 가진 사람 기준으로 빌려주기 
+    for r in _reserve:
+        f = r - 1
+        b = r + 1
+        if f in _lost:
+            _lost.remove(f)
+        elif b in _lost:
+            _lost.remove(b)
+
+    return n - len(_lost)
