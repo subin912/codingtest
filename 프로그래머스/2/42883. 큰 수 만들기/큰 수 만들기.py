@@ -6,7 +6,10 @@ def solution(number, k):
     
     for i in number:
         #뒤에서 더 큰애 있으면 앞 숫자 제거
-        while stack and (k > 0) and stack[-1] < i: #stack은 비어있지않으면 true가 됨!!
+        while stack and (k > 0) and stack[-1] < i: #조건 충족할때까지 못나가 
+            #stack은 비어있지않으면 true가 됨!!
+            #새로 들어온 숫자가 stack 가장 최근숫자보다 클때 기존꺼들 제거 - 후입선출
+            #ex)1924,2,94
             stack.pop()
             k = k-1
         
