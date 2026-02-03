@@ -5,7 +5,7 @@ def solution(routes):
     #print(routes[1][0])
     
     for i in range(1,len(routes)):
-        #만약에 처음 나가는 것보다 진입지점이 더 안에 있으면?
+        #만약에 처음 나가는 진출지점보다 진입지점이 더 안에 있으면(값이 더 크면)?
         if routes[i][0] > camera:
             count = count + 1
             camera = routes[i][1]
