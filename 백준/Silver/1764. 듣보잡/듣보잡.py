@@ -1,7 +1,13 @@
+#집합 A = “듣도 못한 사람들”
+#집합 B = “보도 못한 사람들”
+#A ∩ B (교집합) 구하는 문제
+#------------------------------
+#no_see는 따로 폴더 안만들고, 
+#no_listen 보고 겹치는 애만 result에 추가
+#------------------------------
+
 # N,M 입력 받기
 n,m = map(int, input().split())
-#중복되는 사람 없음
-#N개의 줄에 걸쳐 듣도 못한 사람의 이름
 
 #듣지못하는 n명 이름 저장
 no_listen = set() #저장소 set으로 만들기, 중복없으니까
@@ -22,3 +28,9 @@ result.sort()
 print(len(result))
 for name in result:
     print(name)
+
+#------------------------------------------
+#a = {input().strip() for _ in range(n)}
+#b = {input().strip() for _ in range(m)}
+
+#ans = sorted(a & b)
