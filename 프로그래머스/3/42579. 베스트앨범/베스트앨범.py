@@ -18,15 +18,17 @@ def solution(genres, plays):
     #장르를 총재생수 기준으로 내림차순 정렬하기     
     sorted_genres = sorted(total.items(), key=lambda x: x[1], reverse=True) 
     
-    for g, _ in sorted_genres:
-        songs = genre_dict[g]
+    for g, c in sorted_genres: #g= 장르name ,c = 그 장르의 총 재생수
+        songs = genre_dict[g] #장르의 노래들 꺼내기
         
         # 재생수 내림차순, 재생수 같으면 고유번호 오름차순
-        songs.sort(key=lambda x: (-x[0], x[1]))
+        songs.sort(key=lambda x: (-x[0], x[1])) 
 
         # 앞에서 최대 2개만 추가
-        answer.append(songs[0][1])
-        if len(songs) > 1:
+        answer.append(songs[0][1]) #재생수 제일큰 노래의 번호 ex) (2500,4) ->> 4
+        if len(songs) > 1: #2개 이상이면 2등도 추가.
             answer.append(songs[1][1])
 
     return answer
+
+#즉, 인기장르별 차례로 가서, 그 장르에 인기 노래 2개씩만 뽑음.
