@@ -21,7 +21,7 @@ def solution(number, k):
     if k > 0:
         stack = stack[:-k]
         
-    return ''.join(stack)
+    return ''.join(stack) #['9', '4'] -> "94"
 
 
 #내 뒤에 나보다 키(숫자)가 큰 친구가 오면, 나는 줄에서 빠져야 해!" (단, 기회는 딱 k번뿐이야!)
