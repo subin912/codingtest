@@ -1,24 +1,36 @@
 def solution(n, computers):
-    network = 0
-    visited = [False] * n # 1. 모든 컴퓨터의 방문 여부를 체크할 리스트
+    # 1. 방문 체크 리스트 만들기
+    # 이미 확인한 컴퓨터는 다시 보지 않기 위해 
+    visited = [False]*n
+    network = 0 # 네트워크 개수 
     
-    # 2. 0번부터 n-1번 컴퓨터까지 하나씩 순회함
-    for i in range(n): # '총괄 매니저' for문
-        if not visited[i]: # 아직 아무도 안 가본 새로운 땅(컴퓨터)을 발견했다면?
-            network = network +1 # 네트워크 개수 추가 ("새 네트워크 하나 찾았다!" 하고 카운트)
-            # 3. 스택(바구니)에 시작 컴터 넣기
-            stack = [i]
+    # 2. dfs 함수 만들기 (친구의 친구 계속 찾기)
+    def dfs(i): #한 컴퓨터에서 시작해서 연결된 친구들을 전부 찾기
+        visited[i] = True # 현재 컴퓨터를 확인했다고 표시
+        
+        # 모든 컴퓨터 하나씩 확인 
+        for j in range(n):
             
-            # 4. 스택이 빌 때까지 연결된 모든 컴터 찾아다님
-            while stack: #(이 안에서는 이미 찾은 네트워크의 '내부'를 샅샅이 뒤지는 중...)
-                current = stack.pop() # 가장 최근에 넣은 컴퓨터 꺼내기
-                if not visited[current]:
-                    visited[current] = True # 방문도장 찍기
-                    
-                    # 5. 현재 컴퓨터(current)와 연결된 다른 컴퓨터(j)를 찾습니다.
-                    for j in range(n):
-                        # 연결되어 있고(1), 아직 방문 전이라면 스택에 추가!
-                        if computers[current][j] == 1 and not visited[j]:
-                            stack.append(j)
-                            
+            # i번 컴퓨터와 j번 컴퓨터가 연결되어 있고
+            # 아직 확인하지 않은 컴퓨터라면
+            if computers[i][j] == 1 and not visited[j]: 
+                dfs(j) # 그 컴퓨터에서도 다시 친구들을 찾기
+    
+    # 3. 네트워크 개수 세기 : 모든 컴퓨터를 하나씩 확인
+    for i in range(n):
+        # 아직 확인 안한 컴퓨터라면
+        if not visited[i]:
+            dfs(i) # 그 컴퓨터에서 시작해서 연결된 컴퓨터 친구들 전부 찾기
+            network += 1 #네트워크 하나 발견 
+            
+    # 총 네트워크 개수 반환
     return network
+
+
+# #1. 노드 상태 = 현재 인덱스 
+# #2. 방문 처리 필요함
+# visited = [False]*n
+# #3. 다음 상태 찾기 
+# for next on visited[v]:
+# #4. 종료조건
+# #5. DFS 호출
