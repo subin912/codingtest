@@ -1,37 +1,31 @@
 def solution(park, routes):
-    #1. 그래프, 좌표문제니까
-    n,m = len(park), len(park[0])
-    #2.방문표시안해도될듯 좌표 찍기
-    dx = [-1,1,0,0] #NSWE
-    dy = [0,0,-1,1]
+    #좌표 문제, 그래프
+    n,m = len(park), len(park[0]) #세로, 가로
     
-    #3.수행하기 
-    #3-1.(시작 위치 찾기)
-    for i in range(n): #세로
-        for j in range(m): #가로
+    #좌표 #북남서동
+    move = {'N':(-1,0), 'S':(1,0), 'W':(0,-1), 'E':(0,1)} 
+    
+    #시작점 찾기
+    for i in range(n):
+        for j in range(m):
             if park[i][j] == 'S':
                 x, y = i, j
                 
-    #3-2. 명령 하나씩 실행
-    for route_split in routes:
-        op, nt = route_split.split()
+    #움직임 명령 실행하기 
+    for route in routes:
+        op, nt = route.split()
         nt = int(nt)
-        d = 'NSWE'.index(op) #'NSWE'방향문자
-        ddx, ddy = dx[d], dy[d] 
-
-    #3-3. 그림자 출발
-        nx, ny = x, y #그림자 출발
-        possible = True #일단 갈 수 있다고 가정
-    
-        #3-4. 좌표 이동시키기
-        for _ in range(nt): #0,1,2,~,nt-1까지 돌아 즉 칸 이동하는 거임
-            nx, ny = nx + ddx, ny + ddy #한칸 이동
-            if not (0 <= nx < n and 0 <= ny < m) or park[nx][ny] == 'X':
-                possible = False # 밖이거나 장애물 → 실패
-                break
-            
-        if possible:        #끝까지 갈 수 있을 때만 이동
-            x, y = nx, ny
         
-    
+    #그림자 수행
+        nx, ny = x,y  #그림자 지정하기 (대신할거 적용)
+        possible = True
+        for i in range(nt):
+            nx, ny = nx + move[op][0], ny + move[op][1] #그림자 자기자신에 적용해야함!!
+            if not (0<= nx < n and 0 <= ny < m) or (park[nx][ny] == 'X'): #좌표 안에있지 않고, 막히면
+                    possible = False
+                    break
+                    
+        if possible == True:
+            x,y = nx, ny
+                
     return [x,y]
