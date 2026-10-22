@@ -1,17 +1,20 @@
-#11:43
+#옆으로 밀어야하는데 다시 돌아와야함 26개
 def solution(s, n):
-    answer = '' #문자열로 나와야하기에 리스트 []로 정의안하는거!
-    #이걸 n번 반복
+    low='abcdefghijklmnopqrstuvwxyz'
+    upp='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    answer = ''
+    #print(25%25)
+    #print(low.index('z'))
     for i in range(len(s)):
-    #소문자면 소문자 다음 걸로
-        if s[i] == " ": #공백이면 한칸 띄워야함
+        #공백이면 공백처리
+        if s[i] == " ":
             answer += s[i]
-        
-        elif s[i] == s[i].lower():
-            answer += chr((ord(s[i]) - ord('a') + n) % 26+ ord('a'))
+        #소문자
+        elif s[i].islower():
+            answer += low[(low.index(s[i]) + n) % 26]
     
-    #대문자면 대문자 다음 걸로
-        else:# s[i] == s[i].upper():
-            answer += chr((ord(s[i]) - ord('A') + n) % 26+ ord('A'))
-
+        #대문자
+        elif s[i].isupper():
+            answer += upp[(upp.index(s[i]) + n) % 26]
+            
     return answer
