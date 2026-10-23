@@ -1,12 +1,13 @@
-from collections import Counter
 def solution(want, number, discount):
     answer = 0
-    #dict에 담기
-    dict={}
-    for i in range(len(want)):
-        dict[want[i]] = number[i]
-    #슬라이딩 ㄱㄱ    
     for i in range(len(discount)-9):
-        if dict == Counter(discount[i:i+10]):
+        ok = True #조건을 만족할때만 true준다
+        window = discount[i:i+10]
+        
+        for j in range(len(want)):
+            if window.count(want[j]) < number[j]:
+                ok = False
+        if ok:
             answer += 1
+        
     return answer
